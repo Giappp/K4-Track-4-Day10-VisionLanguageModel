@@ -1,0 +1,919 @@
+{
+  "dataset_version": "d10-21e4070301",
+  "source_sha256": {
+    "data/splits/meta.json": "3897164b1322bf1ba647572e3d6becb41ea9663727ed24a542bdc495f814430b",
+    "data/splits/train.jsonl": "4d4dd9b7b2bcac52a95283ff6a1888652af193d7bdd82dc4f7feaa26fab9719c",
+    "data/splits/val.jsonl": "76f3ba9bc92db50e3588203a46c98e25e7830a8b0519d76994eea169c59ebb4d",
+    "data/splits/test.jsonl": "09dee14aab6ed7bcdd02c4d432c51c34ae191543f1b73f01b4424f2922f8c200",
+    "lab_day10.ipynb": "c75f4a6505598099c28f2bf7354e5e6a6e3cbfabfbb0d5ff1e5f81c39b8cf1d6",
+    "work/e1/processor/processor_config.json": "bfbc24af59a3e73a9cd0653b8d4ae758dfaec4e3e6c15dfb1c6c8ee8d5683c85",
+    "work/e1/processor/tokenizer_config.json": "79a246d4ee3e09970c14b4b66a422db5f6df15837dcd78870c43bac5df3261de",
+    "work/e1/processor/tokenizer.json": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506",
+    "report/evidence/e0.json": "9ce216410e5a88544b7fa6203af5cbb0d5e3d6cd63b690a2096cc833a418e862",
+    "report/evidence/e1.json": "ee8ec1438ccc388fd85ecf71dc28e1714af7538521ed4bb5fd2d8a00389c1daa",
+    "report/evidence/e2.json": "760bf975a0daed3bf4513278b143bae9a4166b5a457378a14c1fc9d16a1534e7",
+    "report/evidence/e3.json": "89f5f9281daf0adcf48629aa61b22933f0700bd2364999dc3b6efedf62f10f42",
+    "work/e1/run.json": "5d6865d3e4d3da46afed198ecd6e61dba9c908264a38953bcae87a082224adac",
+    "work/e2/run.json": "812a4efdcb69468cd54b0f520fd7c8de8cef7afc1f697efdc0ddbdaed4673b47",
+    "work/e3/run.json": "36dfd0d251d7f51bef6340aac3a23a830eb57439c8f8336662f59ef2596edddd"
+  },
+  "available_evidence": [
+    "E0",
+    "E1",
+    "E2",
+    "E3"
+  ],
+  "missing_evidence": [
+    "E4"
+  ],
+  "raw_predictions_available": false,
+  "splits": {
+    "train": {
+      "images": 1422,
+      "total_boxes": 3515,
+      "boxes_per_class": {
+        "manhole": 691,
+        "pothole": 1074,
+        "crack": 1750
+      },
+      "sessions": 13,
+      "median_box_area_pct": {
+        "pothole": 0.37586894095,
+        "crack": 1.3465637066,
+        "manhole": 0.390625
+      },
+      "fraction_box_area_under_1pct": {
+        "pothole": 0.8175046554934823,
+        "crack": 0.41714285714285715,
+        "manhole": 0.9276410998552822
+      }
+    },
+    "val": {
+      "images": 276,
+      "total_boxes": 639,
+      "boxes_per_class": {
+        "crack": 470,
+        "manhole": 103,
+        "pothole": 66
+      },
+      "sessions": 2,
+      "median_box_area_pct": {
+        "pothole": 0.3630682205,
+        "crack": 1.32096243055,
+        "manhole": 0.661894184
+      },
+      "fraction_box_area_under_1pct": {
+        "pothole": 0.8939393939393939,
+        "crack": 0.3829787234042553,
+        "manhole": 0.7378640776699029
+      }
+    },
+    "test": {
+      "images": 311,
+      "total_boxes": 583,
+      "boxes_per_class": {
+        "crack": 299,
+        "manhole": 163,
+        "pothole": 121
+      },
+      "sessions": 3,
+      "median_box_area_pct": {
+        "pothole": 0.41927008680000005,
+        "crack": 1.9813205034999999,
+        "manhole": 0.6688347743
+      },
+      "fraction_box_area_under_1pct": {
+        "pothole": 0.7768595041322314,
+        "crack": 0.22742474916387959,
+        "manhole": 0.7116564417177914
+      }
+    }
+  },
+  "session_overlap": {
+    "train/val": [],
+    "train/test": [],
+    "val/test": []
+  },
+  "architecture": {
+    "method": "Đếm tham số trên kiến trúc meta; không tải trọng số pretrained/GPU.",
+    "config_source": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/raw/main/config.json",
+    "total": 4437815808,
+    "llm_with_embeddings": 4022468096,
+    "visual_including_projector": 415347712,
+    "merger": 27271680,
+    "deepstack_mergers": 81833472,
+    "projector_total": 109105152,
+    "visual_without_projector": 306242560,
+    "lm_head_tied_to_embeddings": true
+  },
+  "evidence": {
+    "e0": {
+      "n_images": 311,
+      "parse_valid_rate": 0.6655948553054662,
+      "missing_predictions": 0,
+      "micro": {
+        "precision": 0.06919642857142858,
+        "recall": 0.05317324185248713,
+        "f1": 0.06013579049466537,
+        "tp": 31,
+        "fp": 417,
+        "fn": 552
+      },
+      "per_class": {
+        "pothole": {
+          "precision": 0.28205128205128205,
+          "recall": 0.09090909090909091,
+          "f1": 0.13749999999999998,
+          "tp": 11,
+          "fp": 28,
+          "fn": 110
+        },
+        "crack": {
+          "precision": 0.0034602076124567475,
+          "recall": 0.0033444816053511705,
+          "f1": 0.003401360544217687,
+          "tp": 1,
+          "fp": 288,
+          "fn": 298
+        },
+        "manhole": {
+          "precision": 0.15833333333333333,
+          "recall": 0.1165644171779141,
+          "f1": 0.13427561837455831,
+          "tp": 19,
+          "fp": 101,
+          "fn": 144
+        },
+        "other": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "mean_iou": 0.6166065580165063,
+      "fp_per_image": 1.3408360128617363,
+      "f1_ci95": [
+        0.0397489539748954,
+        0.08373904576436222
+      ],
+      "score_version": 1,
+      "name": "E0",
+      "dataset_version": "d10-21e4070301",
+      "split": "test",
+      "coord": "norm1000",
+      "meta": {}
+    },
+    "e1": {
+      "n_images": 311,
+      "parse_valid_rate": 1.0,
+      "missing_predictions": 0,
+      "micro": {
+        "precision": 0.26063829787234044,
+        "recall": 0.2521440823327616,
+        "f1": 0.2563208369659983,
+        "tp": 147,
+        "fp": 417,
+        "fn": 436
+      },
+      "per_class": {
+        "pothole": {
+          "precision": 0.22093023255813954,
+          "recall": 0.15702479338842976,
+          "f1": 0.18357487922705315,
+          "tp": 19,
+          "fp": 67,
+          "fn": 102
+        },
+        "crack": {
+          "precision": 0.16103896103896104,
+          "recall": 0.20735785953177258,
+          "f1": 0.18128654970760233,
+          "tp": 62,
+          "fp": 323,
+          "fn": 237
+        },
+        "manhole": {
+          "precision": 0.7096774193548387,
+          "recall": 0.4049079754601227,
+          "f1": 0.515625,
+          "tp": 66,
+          "fp": 27,
+          "fn": 97
+        },
+        "other": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "mean_iou": 0.6684475827268052,
+      "fp_per_image": 1.3408360128617363,
+      "f1_ci95": [
+        0.22013651877133109,
+        0.2936436884512086
+      ],
+      "score_version": 1,
+      "name": "E1",
+      "dataset_version": "d10-21e4070301",
+      "split": "test",
+      "coord": "norm1000",
+      "meta": {
+        "trainable_params": 33030144,
+        "peak_vram_gb": 8.578339099884033,
+        "train_minutes": 45.439693084449985
+      }
+    },
+    "e2": {
+      "n_images": 311,
+      "parse_valid_rate": 1.0,
+      "missing_predictions": 0,
+      "micro": {
+        "precision": 0.36633663366336633,
+        "recall": 0.31732418524871353,
+        "f1": 0.34007352941176466,
+        "tp": 185,
+        "fp": 320,
+        "fn": 398
+      },
+      "per_class": {
+        "pothole": {
+          "precision": 0.18888888888888888,
+          "recall": 0.14049586776859505,
+          "f1": 0.16113744075829387,
+          "tp": 17,
+          "fp": 73,
+          "fn": 104
+        },
+        "crack": {
+          "precision": 0.29042904290429045,
+          "recall": 0.29431438127090304,
+          "f1": 0.292358803986711,
+          "tp": 88,
+          "fp": 215,
+          "fn": 211
+        },
+        "manhole": {
+          "precision": 0.7142857142857143,
+          "recall": 0.49079754601226994,
+          "f1": 0.5818181818181819,
+          "tp": 80,
+          "fp": 32,
+          "fn": 83
+        },
+        "other": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "mean_iou": 0.6681875184486824,
+      "fp_per_image": 1.0289389067524115,
+      "f1_ci95": [
+        0.29856115107913667,
+        0.37979420018709076
+      ],
+      "score_version": 1,
+      "name": "E2",
+      "dataset_version": "d10-21e4070301",
+      "split": "test",
+      "coord": "norm1000",
+      "meta": {
+        "trainable_params": 142135296,
+        "peak_vram_gb": 8.586270809173584,
+        "train_minutes": 45.87164186578334,
+        "setup": "E2",
+        "seed": 42,
+        "train_fraction": 1.0,
+        "lora_r": 16
+      }
+    },
+    "e3": {
+      "n_images": 311,
+      "parse_valid_rate": 1.0,
+      "missing_predictions": 0,
+      "micro": {
+        "precision": 0.48804780876494025,
+        "recall": 0.4202401372212693,
+        "f1": 0.4516129032258065,
+        "tp": 245,
+        "fp": 257,
+        "fn": 338
+      },
+      "per_class": {
+        "pothole": {
+          "precision": 0.3888888888888889,
+          "recall": 0.2892561983471074,
+          "f1": 0.33175355450236965,
+          "tp": 35,
+          "fp": 55,
+          "fn": 86
+        },
+        "crack": {
+          "precision": 0.37894736842105264,
+          "recall": 0.3612040133779264,
+          "f1": 0.3698630136986301,
+          "tp": 108,
+          "fp": 177,
+          "fn": 191
+        },
+        "manhole": {
+          "precision": 0.8031496062992126,
+          "recall": 0.6257668711656442,
+          "f1": 0.703448275862069,
+          "tp": 102,
+          "fp": 25,
+          "fn": 61
+        },
+        "other": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "mean_iou": 0.6850799756943464,
+      "fp_per_image": 0.8263665594855305,
+      "f1_ci95": [
+        0.409982174688057,
+        0.49301397205588826
+      ],
+      "score_version": 1,
+      "name": "E3",
+      "dataset_version": "d10-21e4070301",
+      "split": "test",
+      "coord": "norm1000",
+      "meta": {
+        "trainable_params": 148426752,
+        "peak_vram_gb": 12.031424522399902,
+        "train_minutes": 55.226613847783334,
+        "setup": "E3",
+        "seed": 42,
+        "train_fraction": 1.0,
+        "lora_r": 16
+      }
+    }
+  },
+  "comparisons": {
+    "e1_vs_e0": {
+      "f1_delta": 0.1961850464713329,
+      "f1_delta_percentage_points": 19.61850464713329,
+      "ci95_gap": 0.13639747300696886,
+      "per_class_f1_delta_percentage_points": {
+        "pothole": 4.6074879227053165,
+        "crack": 17.788518916338464,
+        "manhole": 38.13493816254417
+      },
+      "tp_delta": 116,
+      "fp_delta": 0,
+      "fn_delta": -116
+    },
+    "e2_vs_e1": {
+      "f1_delta": 0.08375269244576639,
+      "f1_delta_percentage_points": 8.37526924457664,
+      "ci95_gap": 0.004917462627928082,
+      "per_class_f1_delta_percentage_points": {
+        "pothole": -2.2437438468759288,
+        "crack": 11.107225427910866,
+        "manhole": 6.6193181818181905
+      },
+      "tp_delta": 38,
+      "fp_delta": -97,
+      "fn_delta": -38,
+      "trainable_params_delta": 109105152,
+      "trainable_params_increase_pct": 330.3199404761905,
+      "peak_vram_gb_delta": 0.007931709289550781,
+      "peak_vram_gb_increase_pct": 0.09246206284452274,
+      "train_minutes_delta": 0.4319487813333538,
+      "train_minutes_increase_pct": 0.9505979288429112
+    },
+    "e3_vs_e2": {
+      "f1_delta": 0.11153937381404183,
+      "f1_delta_percentage_points": 11.153937381404184,
+      "ci95_gap": 0.03018797450096622,
+      "per_class_f1_delta_percentage_points": {
+        "pothole": 17.06161137440758,
+        "crack": 7.750420971191913,
+        "manhole": 12.163009404388713
+      },
+      "tp_delta": 60,
+      "fp_delta": -63,
+      "fn_delta": -60,
+      "trainable_params_delta": 6291456,
+      "trainable_params_increase_pct": 4.426385406760613,
+      "peak_vram_gb_delta": 3.4451537132263184,
+      "peak_vram_gb_increase_pct": 40.123981525780806,
+      "train_minutes_delta": 9.354971981999995,
+      "train_minutes_increase_pct": 20.39380236131918
+    },
+    "e3_vs_e1": {
+      "f1_delta": 0.19529206625980822,
+      "f1_delta_percentage_points": 19.529206625980823,
+      "ci95_gap": 0.11633848623684839,
+      "per_class_f1_delta_percentage_points": {
+        "pothole": 14.81786752753165,
+        "crack": 18.85764639910278,
+        "manhole": 18.782327586206904
+      },
+      "tp_delta": 98,
+      "fp_delta": -160,
+      "fn_delta": -98,
+      "trainable_params_delta": 115396608,
+      "trainable_params_increase_pct": 349.3675595238095,
+      "peak_vram_gb_delta": 3.453085422515869,
+      "peak_vram_gb_increase_pct": 40.25354304963942,
+      "train_minutes_delta": 9.786920763333349,
+      "train_minutes_increase_pct": 21.538263353021094
+    }
+  },
+  "best_setup_by_test_f1": "E3",
+  "standalone_training_log_available": {
+    "E1": true,
+    "E2": true,
+    "E3": true
+  },
+  "training": {
+    "E1": {
+      "source": "work/e1/run.json",
+      "config": {
+        "name": "E1",
+        "description": "LoRA chỉ trên LLM; đóng băng ViT và projector.",
+        "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+        "quantization": "nf4-4bit",
+        "lora": {
+          "r": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "targets": "llm"
+        },
+        "train_projector": false,
+        "lr": 0.0002,
+        "batch_size": 2,
+        "grad_accum": 4,
+        "max_steps": 300,
+        "seed": 42
+      },
+      "completed_steps": 300,
+      "n_train_images": null,
+      "matched_module_count": null,
+      "first_loss": 1.204907089471817,
+      "last_loss": 0.5528362989425659,
+      "min_loss": 0.47795602679252625,
+      "max_loss": 1.2497152090072632,
+      "mean_first_20": 0.8480755865573884,
+      "mean_last_20": 0.568161116912961,
+      "all_losses_finite": true,
+      "resource_metadata_matches_evidence": true
+    },
+    "E2": {
+      "source": "work/e2/run.json",
+      "config": {
+        "name": "E2",
+        "description": "E1 + mở đầy đủ projector (visual.merger và visual.deepstack_merger_list).",
+        "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+        "quantization": "nf4-4bit",
+        "lora": {
+          "r": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "targets": "llm"
+        },
+        "train_projector": true,
+        "lr": 0.0002,
+        "batch_size": 2,
+        "grad_accum": 4,
+        "max_steps": 300,
+        "seed": 42,
+        "setup": "E2",
+        "coord": "norm1000",
+        "train_fraction": 1.0,
+        "max_new_tokens": 256,
+        "warmup_ratio": 0.05,
+        "weight_decay": 0.0
+      },
+      "completed_steps": 300,
+      "n_train_images": 1422,
+      "matched_module_count": 252,
+      "first_loss": 1.1903356909751892,
+      "last_loss": 0.48279188573360443,
+      "min_loss": 0.43845323473215103,
+      "max_loss": 1.2278103232383728,
+      "mean_first_20": 0.8466265521943569,
+      "mean_last_20": 0.517445994913578,
+      "all_losses_finite": true,
+      "resource_metadata_matches_evidence": true,
+      "lr": {
+        "first": 1.3333333333333333e-05,
+        "last": 0.0,
+        "min": 0.0,
+        "max": 0.0002
+      },
+      "grad_norm": {
+        "first": 3.72397518157959,
+        "last": 0.4491943120956421,
+        "min": 0.3197794556617737,
+        "max": 3.99562931060791
+      }
+    },
+    "E3": {
+      "source": "work/e3/run.json",
+      "config": {
+        "name": "E3",
+        "description": "E2 + LoRA trên các khối attention và MLP của ViT.",
+        "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+        "quantization": "nf4-4bit",
+        "lora": {
+          "r": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "targets": "llm+vit"
+        },
+        "train_projector": true,
+        "lr": 0.0002,
+        "batch_size": 2,
+        "grad_accum": 4,
+        "max_steps": 300,
+        "seed": 42,
+        "setup": "E3",
+        "coord": "norm1000",
+        "train_fraction": 1.0,
+        "max_new_tokens": 256,
+        "warmup_ratio": 0.05,
+        "weight_decay": 0.0
+      },
+      "completed_steps": 300,
+      "n_train_images": 1422,
+      "matched_module_count": 348,
+      "first_loss": 1.1903356909751892,
+      "last_loss": 0.46030669659376144,
+      "min_loss": 0.42264311760663986,
+      "max_loss": 1.2278103232383728,
+      "mean_first_20": 0.838072869926691,
+      "mean_last_20": 0.49580164812505245,
+      "all_losses_finite": true,
+      "resource_metadata_matches_evidence": true,
+      "lr": {
+        "first": 1.3333333333333333e-05,
+        "last": 0.0,
+        "min": 0.0,
+        "max": 0.0002
+      },
+      "grad_norm": {
+        "first": 4.141567707061768,
+        "last": 0.7691555023193359,
+        "min": 0.4633837938308716,
+        "max": 24.86402702331543
+      }
+    }
+  },
+  "common_training_config": {
+    "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+    "quantization": "nf4-4bit",
+    "lr": 0.0002,
+    "batch_size": 2,
+    "grad_accum": 4,
+    "max_steps": 300,
+    "seed": 42
+  },
+  "mask_check": {
+    "method": "CPU, processor E1 đã lưu và encode_example hiện tại trong notebook.",
+    "image_id": "20250216_164325",
+    "image_size": [
+      640,
+      360
+    ],
+    "image_grid_thw": [
+      [
+        1,
+        22,
+        40
+      ]
+    ],
+    "image_tokens": 220,
+    "total_tokens": 599,
+    "supervised_tokens": 250,
+    "masked_tokens": 349,
+    "supervised_image_tokens": 0,
+    "without_mask_supervised_tokens": 599,
+    "without_mask_supervised_image_tokens": 220,
+    "target": "[{\"label\":\"crack\",\"bbox_2d\":[430,467,583,506]},{\"label\":\"pothole\",\"bbox_2d\":[361,475,414,522]},{\"label\":\"manhole\",\"bbox_2d\":[317,481,616,625]},{\"label\":\"pothole\",\"bbox_2d\":[583,500,627,614]},{\"label\":\"crack\",\"bbox_2d\":[580,508,655,614]},{\"label\":\"pothole\",\"bbox_2d\":[259,517,311,572]},{\"label\":\"crack\",\"bbox_2d\":[397,628,447,717]},{\"label\":\"crack\",\"bbox_2d\":[339,683,398,808]},{\"label\":\"crack\",\"bbox_2d\":[158,789,361,994]}]",
+    "decoded_supervised_tokens": "[{\"label\":\"crack\",\"bbox_2d\":[430,467,583,506]},{\"label\":\"pothole\",\"bbox_2d\":[361,475,414,522]},{\"label\":\"manhole\",\"bbox_2d\":[317,481,616,625]},{\"label\":\"pothole\",\"bbox_2d\":[583,500,627,614]},{\"label\":\"crack\",\"bbox_2d\":[580,508,655,614]},{\"label\":\"pothole\",\"bbox_2d\":[259,517,311,572]},{\"label\":\"crack\",\"bbox_2d\":[397,628,447,717]},{\"label\":\"crack\",\"bbox_2d\":[339,683,398,808]},{\"label\":\"crack\",\"bbox_2d\":[158,789,361,994]}]<|im_end|>\n",
+    "prompt_is_prefix": true,
+    "answer_and_end_token_verified": true,
+    "limitation": "Không phải ablation huấn luyện có/không mask; không suy ra F1 của nhánh bỏ mask."
+  },
+  "coordinate_check": {
+    "method": "Output tổng hợp từ GT test, chuyển bằng hàm notebook, chấm với evaluate của đề.",
+    "limitation": "Không suy luận model, không phải E4, không đo lại E0/E1 trên test.",
+    "cases": {
+      "answer_norm1000__score_norm1000": {
+        "n_images": 311,
+        "parse_valid_rate": 1.0,
+        "missing_predictions": 0,
+        "micro": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 583,
+          "fp": 0,
+          "fn": 0
+        },
+        "per_class": {
+          "pothole": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 121,
+            "fp": 0,
+            "fn": 0
+          },
+          "crack": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 299,
+            "fp": 0,
+            "fn": 0
+          },
+          "manhole": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 163,
+            "fp": 0,
+            "fn": 0
+          },
+          "other": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "mean_iou": 0.988197425021176,
+        "fp_per_image": 0.0,
+        "f1_ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "answer_norm1000__score_pixel": {
+        "n_images": 311,
+        "parse_valid_rate": 1.0,
+        "missing_predictions": 0,
+        "micro": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 583,
+          "fn": 583
+        },
+        "per_class": {
+          "pothole": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 121,
+            "fn": 121
+          },
+          "crack": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 299,
+            "fn": 299
+          },
+          "manhole": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 163,
+            "fn": 163
+          },
+          "other": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "mean_iou": 0.0,
+        "fp_per_image": 1.8745980707395498,
+        "f1_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "answer_pixel__score_norm1000": {
+        "n_images": 311,
+        "parse_valid_rate": 1.0,
+        "missing_predictions": 0,
+        "micro": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 583,
+          "fn": 583
+        },
+        "per_class": {
+          "pothole": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 121,
+            "fn": 121
+          },
+          "crack": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 299,
+            "fn": 299
+          },
+          "manhole": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 163,
+            "fn": 163
+          },
+          "other": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "mean_iou": 0.0,
+        "fp_per_image": 1.8745980707395498,
+        "f1_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "answer_pixel__score_pixel": {
+        "n_images": 311,
+        "parse_valid_rate": 1.0,
+        "missing_predictions": 0,
+        "micro": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 583,
+          "fp": 0,
+          "fn": 0
+        },
+        "per_class": {
+          "pothole": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 121,
+            "fp": 0,
+            "fn": 0
+          },
+          "crack": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 299,
+            "fp": 0,
+            "fn": 0
+          },
+          "manhole": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 163,
+            "fp": 0,
+            "fn": 0
+          },
+          "other": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "mean_iou": 0.9997694046771176,
+        "fp_per_image": 0.0,
+        "f1_ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "ground_truth_gallery": [
+    {
+      "focus_label": "pothole",
+      "focus_yolo": [
+        0.507812,
+        0.519444,
+        0.025,
+        0.016667
+      ],
+      "area_pct": 0.0416675,
+      "selection": "smallest_available",
+      "image_id": "vlcsnap-2025-02-19-17h03m26s014",
+      "session": "vlc-2025-02-19-17",
+      "n_gt_boxes": 6
+    },
+    {
+      "focus_label": "pothole",
+      "focus_yolo": [
+        0.191406,
+        0.555555,
+        0.107812,
+        0.038889
+      ],
+      "area_pct": 0.41927008680000005,
+      "selection": "near_median",
+      "image_id": "vlcsnap-2025-02-19-17h05m14s947",
+      "session": "vlc-2025-02-19-17",
+      "n_gt_boxes": 2
+    },
+    {
+      "focus_label": "crack",
+      "focus_yolo": [
+        0.394531,
+        0.720833,
+        0.010938,
+        0.102778
+      ],
+      "area_pct": 0.1124185764,
+      "selection": "smallest_available",
+      "image_id": "vlcsnap-2025-02-18-23h29m11s728",
+      "session": "vlc-2025-02-18-23",
+      "n_gt_boxes": 4
+    },
+    {
+      "focus_label": "crack",
+      "focus_yolo": [
+        0.433593,
+        0.629166,
+        0.085937,
+        0.230555
+      ],
+      "area_pct": 1.9813205034999999,
+      "selection": "near_median",
+      "image_id": "vlcsnap-2025-02-18-23h10m48s405",
+      "session": "vlc-2025-02-18-23",
+      "n_gt_boxes": 3
+    },
+    {
+      "focus_label": "manhole",
+      "focus_yolo": [
+        0.51875,
+        0.581945,
+        0.0375,
+        0.019445
+      ],
+      "area_pct": 0.07291875,
+      "selection": "smallest_available",
+      "image_id": "vlcsnap-2025-02-19-17h05m37s430",
+      "session": "vlc-2025-02-19-17",
+      "n_gt_boxes": 4
+    },
+    {
+      "focus_label": "manhole",
+      "focus_yolo": [
+        0.797656,
+        0.726388,
+        0.104687,
+        0.063889
+      ],
+      "area_pct": 0.6688347743,
+      "selection": "near_median",
+      "image_id": "vlcsnap-00209",
+      "session": "num-4",
+      "n_gt_boxes": 2
+    }
+  ]
+}
