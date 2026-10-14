@@ -13,19 +13,30 @@
     "report/evidence/e1.json": "ee8ec1438ccc388fd85ecf71dc28e1714af7538521ed4bb5fd2d8a00389c1daa",
     "report/evidence/e2.json": "760bf975a0daed3bf4513278b143bae9a4166b5a457378a14c1fc9d16a1534e7",
     "report/evidence/e3.json": "89f5f9281daf0adcf48629aa61b22933f0700bd2364999dc3b6efedf62f10f42",
+    "report/evidence/e4_rank_4.json": "a595a206da7bc9fb6246b32bbdf48b251e577983a39aea10c3e8a55f48376728",
     "work/e1/run.json": "5d6865d3e4d3da46afed198ecd6e61dba9c908264a38953bcae87a082224adac",
     "work/e2/run.json": "812a4efdcb69468cd54b0f520fd7c8de8cef7afc1f697efdc0ddbdaed4673b47",
-    "work/e3/run.json": "36dfd0d251d7f51bef6340aac3a23a830eb57439c8f8336662f59ef2596edddd"
+    "work/e3/run.json": "36dfd0d251d7f51bef6340aac3a23a830eb57439c8f8336662f59ef2596edddd",
+    "work/e4_rank_4/final/run.json": "5501ee68594202b760d8caa7c2a540532b956a8761b5f6b4720c88de52253b69"
   },
   "available_evidence": [
     "E0",
     "E1",
     "E2",
-    "E3"
-  ],
-  "missing_evidence": [
+    "E3",
+    "E4_RANK_4",
     "E4"
   ],
+  "missing_evidence": [],
+  "e4_rank_ablation": {
+    "available_ranks": [
+      4
+    ],
+    "missing_ranks": [
+      64
+    ],
+    "guide_pair_complete": false
+  },
   "raw_predictions_available": false,
   "splits": {
     "train": {
@@ -362,6 +373,79 @@
         "train_fraction": 1.0,
         "lora_r": 16
       }
+    },
+    "e4_rank_4": {
+      "n_images": 311,
+      "parse_valid_rate": 1.0,
+      "missing_predictions": 0,
+      "micro": {
+        "precision": 0.4533333333333333,
+        "recall": 0.40823327615780447,
+        "f1": 0.42960288808664254,
+        "tp": 238,
+        "fp": 287,
+        "fn": 345
+      },
+      "per_class": {
+        "pothole": {
+          "precision": 0.3163265306122449,
+          "recall": 0.256198347107438,
+          "f1": 0.2831050228310502,
+          "tp": 31,
+          "fp": 67,
+          "fn": 90
+        },
+        "crack": {
+          "precision": 0.36824324324324326,
+          "recall": 0.36454849498327757,
+          "f1": 0.3663865546218487,
+          "tp": 109,
+          "fp": 187,
+          "fn": 190
+        },
+        "manhole": {
+          "precision": 0.7480916030534351,
+          "recall": 0.6012269938650306,
+          "f1": 0.6666666666666666,
+          "tp": 98,
+          "fp": 33,
+          "fn": 65
+        },
+        "other": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "mean_iou": 0.6976331679642954,
+      "fp_per_image": 0.9228295819935691,
+      "f1_ci95": [
+        0.39095022624434395,
+        0.46792452830188674
+      ],
+      "score_version": 1,
+      "name": "E4_RANK_4",
+      "dataset_version": "d10-21e4070301",
+      "split": "test",
+      "coord": "norm1000",
+      "meta": {
+        "trainable_params": 118935552,
+        "peak_vram_gb": 11.592291831970215,
+        "train_minutes": 54.801047255483326,
+        "setup": "E3",
+        "seed": 42,
+        "train_fraction": 1.0,
+        "lora_r": 4,
+        "config_sha256": "d381084b67a3c2bad33e6c16068df47bd11c5532f29472113e101eb3ca5b2512",
+        "checkpoint_sha256": "2dc051974f222b310705d701687532c9bd64287083dbec8db077a959fa6faecc",
+        "pred_sha256": "81c0a71dc57f969218f7e693ddc6c2b6c5171e44d1a08406e016dda8623b1058",
+        "ablation": "rank",
+        "ablation_value": 4,
+        "base_setup": "E3"
+      }
     }
   },
   "comparisons": {
@@ -434,13 +518,33 @@
       "peak_vram_gb_increase_pct": 40.25354304963942,
       "train_minutes_delta": 9.786920763333349,
       "train_minutes_increase_pct": 21.538263353021094
+    },
+    "e4_rank_4_vs_e3": {
+      "f1_delta": -0.022010015139163952,
+      "f1_delta_percentage_points": -2.2010015139163954,
+      "ci95_gap": -0.10206374581154432,
+      "per_class_f1_delta_percentage_points": {
+        "pothole": -4.864853167131944,
+        "crack": -0.3476459076781402,
+        "manhole": -3.678160919540241
+      },
+      "tp_delta": -7,
+      "fp_delta": 30,
+      "fn_delta": 7,
+      "trainable_params_delta": -29491200,
+      "trainable_params_increase_pct": -19.86919446974087,
+      "peak_vram_gb_delta": -0.4391326904296875,
+      "peak_vram_gb_increase_pct": -3.6498811060329373,
+      "train_minutes_delta": -0.42556659230000804,
+      "train_minutes_increase_pct": -0.7705824468488331
     }
   },
   "best_setup_by_test_f1": "E3",
   "standalone_training_log_available": {
     "E1": true,
     "E2": true,
-    "E3": true
+    "E3": true,
+    "E4_RANK_4": true
   },
   "training": {
     "E1": {
@@ -573,6 +677,59 @@
         "last": 0.7691555023193359,
         "min": 0.4633837938308716,
         "max": 24.86402702331543
+      }
+    },
+    "E4_RANK_4": {
+      "source": "work/e4_rank_4/final/run.json",
+      "config": {
+        "name": "E4_RANK_4",
+        "description": "E2 + LoRA trên các khối attention và MLP của ViT.",
+        "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+        "quantization": "nf4-4bit",
+        "lora": {
+          "r": 4,
+          "alpha": 8,
+          "dropout": 0.05,
+          "targets": "llm+vit"
+        },
+        "train_projector": true,
+        "lr": 0.0002,
+        "batch_size": 2,
+        "grad_accum": 4,
+        "max_steps": 300,
+        "seed": 42,
+        "setup": "E3",
+        "coord": "norm1000",
+        "train_fraction": 1.0,
+        "max_new_tokens": 256,
+        "warmup_ratio": 0.05,
+        "weight_decay": 0.0,
+        "ablation": "rank",
+        "ablation_value": 4,
+        "base_setup": "E3"
+      },
+      "completed_steps": 300,
+      "n_train_images": 1422,
+      "matched_module_count": 348,
+      "first_loss": 1.1903356909751892,
+      "last_loss": 0.49065180122852325,
+      "min_loss": 0.4131782129406929,
+      "max_loss": 1.2278103232383728,
+      "mean_first_20": 0.8746066369116307,
+      "mean_last_20": 0.4940047986805439,
+      "all_losses_finite": true,
+      "resource_metadata_matches_evidence": true,
+      "lr": {
+        "first": 1.3333333333333333e-05,
+        "last": 0.0,
+        "min": 0.0,
+        "max": 0.0002
+      },
+      "grad_norm": {
+        "first": 2.3890671730041504,
+        "last": 0.5145077109336853,
+        "min": 0.4314514100551605,
+        "max": 4.537519931793213
       }
     }
   },

@@ -3,7 +3,7 @@ Họ tên: Nguyễn Văn Giáp
 
 ## Bảng tổng hợp (số của bạn, lấy từ `report/evidence/*.json`)
 
-Số E0–E3 lấy trực tiếp từ [e0.json](report/evidence/e0.json), [e1.json](report/evidence/e1.json), [e2.json](report/evidence/e2.json) và [e3.json](report/evidence/e3.json). Cả bốn cùng dataset `d10-21e4070301`, test 311 ảnh, thang norm1000 và không thiếu dự đoán. Đã đối chiếu [run E1](work/e1/run.json), [run E2](work/e2/run.json) và [run E3](work/e3/run.json): số tham số trainable, VRAM đỉnh và thời gian khớp chính xác với metadata của từng evidence. Cả ba hoàn tất 300 bước và có loss hữu hạn. Chưa có E4; dấu “—” biểu thị chưa có số đo. E0 không train, chưa có log VRAM hoặc thời gian suy luận.
+Số E0–E4 lấy trực tiếp từ [e0.json](report/evidence/e0.json), [e1.json](report/evidence/e1.json), [e2.json](report/evidence/e2.json), [e3.json](report/evidence/e3.json) và [e4_rank_4.json](report/evidence/e4_rank_4.json). Cả năm cùng dataset `d10-21e4070301`, test 311 ảnh, thang norm1000 và không thiếu dự đoán. Đã đối chiếu [run E1](work/e1/run.json), [run E2](work/e2/run.json), [run E3](work/e3/run.json) và [run E4 rank 4](work/e4_rank_4/final/run.json): số tham số trainable, VRAM đỉnh và thời gian khớp chính xác với metadata của từng evidence. Cả bốn run hoàn tất 300 bước và có loss hữu hạn. E4 hiện có nhánh rank 4; chưa có nhánh rank 64 theo GUIDE. Dấu “—” biểu thị chưa có số đo. E0 không train, chưa có log VRAM hoặc thời gian suy luận.
 
 | Mã | Setup | Tham số huấn luyện | VRAM đỉnh (GB) | Phút train | F1 | CI95 | FP/ảnh | F1 pothole | F1 crack | F1 manhole |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -11,7 +11,7 @@ Số E0–E3 lấy trực tiếp từ [e0.json](report/evidence/e0.json), [e1.js
 | E1 | LoRA LLM | 33.030.144 | 8,5783 | 45,4397 | 0,2563 | [0,2201; 0,2936] | 1,3408 | 0,1836 | 0,1813 | 0,5156 |
 | E2 | + projector | 142.135.296 | 8,5863 | 45,8716 | 0,3401 | [0,2986; 0,3798] | 1,0289 | 0,1611 | 0,2924 | 0,5818 |
 | E3 | + LoRA ViT | 148.426.752 | 12,0314 | 55,2266 | 0,4516 | [0,4100; 0,4930] | 0,8264 | 0,3318 | 0,3699 | 0,7034 |
-| E4 | Chưa có ablation | — | — | — | — | — | — | — | — | — |
+| E4 r=4 | E3, rank 4, alpha 8 | 118.935.552 | 11,5923 | 54,8010 | 0,4296 | [0,3910; 0,4679] | 0,9228 | 0,2831 | 0,3664 | 0,6667 |
 
 Phép so sánh và kiểm tra nhất quán được lưu ở [current_data.json](report/analysis/current_data.json), tái tạo bằng `python report/analyze_current_data.py` trong môi trường của lab. Script không huấn luyện/suy luận model hoặc ghi đè evidence.
 
@@ -134,7 +134,7 @@ Tất cả 300 loss của mỗi setup đều hữu hạn, có xu hướng giảm
 
 Theo các evidence hiện có, **E3 là setup tốt nhất về F1** và là lựa chọn baseline cho E4 nếu ưu tiên chất lượng định vị. **E2 là phương án cân bằng** khi ưu tiên VRAM thấp: F1 cao hơn E1 với tài nguyên được ghi nhận gần tương đương, nhưng cần xác minh phép đo VRAM và chấp nhận chất lượng pothole thấp hơn. E1 có ít tham số trainable nhất, đồng thời F1 thấp nhất trong ba setup.
 
-Run log đã xác nhận cấu hình huấn luyện chung, số bước, module LoRA và tài nguyên E2/E3. Tuy nhiên, run/evidence E0–E3 chưa ghi danh sách skip hoặc kết quả kiểm tra dtype ViT. Chưa xác nhận E0/E1 đã lưu dùng bản sửa `model.visual` hay chưa; nếu phạm vi lượng tử hóa khác nhau, so sánh E1 với E2/E3 chưa cô lập được hoàn toàn tác động mở khối. Chưa có trọng số checkpoint để xác minh dtype/projector đã lưu. Các kết luận trên là đánh giá bằng chứng hiện có với các giới hạn này.
+Run log đã xác nhận cấu hình huấn luyện chung, số bước, module LoRA và tài nguyên E2/E3. Tuy nhiên, run/evidence E0–E3 chưa ghi danh sách skip hoặc kết quả kiểm tra dtype ViT. Chưa xác nhận E0/E1 đã lưu dùng bản sửa `model.visual` hay chưa; nếu phạm vi lượng tử hóa khác nhau, so sánh E1 với E2/E3 chưa cô lập được hoàn toàn tác động mở khối. Chưa có trọng số checkpoint E2/E3 để xác minh dtype/projector đã lưu. Các kết luận trên là đánh giá bằng chứng hiện có với các giới hạn này.
 
 ### Câu 8 — Tập test có 311 ảnh: khoảng tin cậy rộng thế nào, và điều đó giới hạn kết luận so sánh các setup ra sao?
 
@@ -144,12 +144,15 @@ Run log đã xác nhận cấu hình huấn luyện chung, số bước, module 
 | E1 | **0,2563** | **[0,2201; 0,2936]** | **0,0735** | **7,35** |
 | E2 | **0,3401** | **[0,2986; 0,3798]** | **0,0812** | **8,12** |
 | E3 | **0,4516** | **[0,4100; 0,4930]** | **0,0830** | **8,30** |
+| E4 r=4 | **0,4296** | **[0,3910; 0,4679]** | **0,0770** | **7,70** |
 
 CI của các cặp kế tiếp không chồng nhau: cận dưới E1 **0,2201** cao hơn cận trên E0 **0,0837**; cận dưới E2 **0,2986** cao hơn cận trên E1 **0,2936** khoảng **0,0049**; cận dưới E3 **0,4100** cao hơn cận trên E2 **0,3798** khoảng **0,0302**. Thứ hạng F1 **E3 > E2 > E1 > E0** được hỗ trợ bởi các CI đã ghi nhận, nhưng vẫn có hạn chế về tính độc lập của ảnh và cấu hình ở câu 7.
 
 `score.py` bootstrap **1.000 lần theo ảnh**, cộng TP/FP/FN rồi tính micro-F1. Test chỉ có **3 nhóm session**, và frame cùng session có thể tương quan. Vì vậy 311 ảnh không tương đương 311 cảnh độc lập; CI theo ảnh có thể đánh giá thấp bất định khi tổng quát sang phiên quay mới.
 
-Không kết luận setup hơn nhau chỉ vì F1 chênh vài điểm phần trăm. CI riêng từng setup chưa phải CI của hiệu F1; vì dùng cùng test, cần bootstrap ghép cặp theo cùng ảnh hoặc phân tích theo session để đánh giá chênh lệch trực tiếp. Thiếu output/TP-FP-FN từng ảnh nên chưa làm được phân tích đó. Chưa có CI E4 hoặc lặp nhiều seed để đánh giá độ ổn định giữa các lần train.
+E4 rank 4 thấp hơn E3 rank 16 **2,20 điểm phần trăm** F1, nhưng hai CI chồng nhau ở **[0,4100; 0,4679]**. Chưa đủ bằng chứng để khẳng định giảm rank làm giảm chất lượng một cách có ý nghĩa thống kê; CI chồng nhau cũng không chứng minh hai rank tương đương.
+
+Không kết luận setup hơn nhau chỉ vì F1 chênh vài điểm phần trăm. CI riêng từng setup chưa phải CI của hiệu F1; vì dùng cùng test, cần bootstrap ghép cặp theo cùng ảnh hoặc phân tích theo session để đánh giá chênh lệch trực tiếp. Thiếu output/TP-FP-FN từng ảnh nên chưa làm được phân tích đó. Đã có CI E4 rank 4, nhưng chưa có rank 64 hoặc lặp nhiều seed để đánh giá độ ổn định giữa các lần train.
 
 ### Câu 9 — Phân tích lỗi theo lớp: lớp nào kém nhất và vì sao (kích thước box, số mẫu, ngữ nghĩa)? Kèm ảnh minh hoạ.
 
@@ -163,6 +166,8 @@ E0 yếu nhất ở **crack**, F1 **0,0034**. Với E1, crack (**0,1813**) và p
 
 E3 chỉ tìm đúng **35/121 pothole**, recall **28,93%**, còn **86 FN**. Crack vẫn tạo nhiều FP nhất: **177/257 FP** toàn bộ E3, khoảng **68,87%**. Manhole có precision **80,31%**, recall **62,58%**, cao nhất ba lớp. Hướng cải thiện cần ưu tiên recall pothole và giảm FP crack, thay vì chỉ tối ưu F1 tổng.
 
+E4 rank 4 giữ cùng thứ tự độ khó: pothole F1 **0,2831** (**31 TP / 67 FP / 90 FN**), crack **0,3664** (**109 / 187 / 190**), manhole **0,6667** (**98 / 33 / 65**). So với E3 rank 16, F1 lần lượt giảm **4,86 / 0,35 / 3,68 điểm phần trăm**. Pothole vẫn có recall thấp (**25,62%**); crack tạo **187/287 FP**, khoảng **65,16%** tổng FP. Các số này mô tả kết quả quan sát, chưa xác định được nguyên nhân sai khi thiếu dự đoán từng ảnh.
+
 Pothole có nhiều box nhỏ, trung vị **0,4193%** ảnh, nên sai vài pixel dễ giảm IoU. Crack có nhiều mẫu train nhất và box test lớn hơn hai lớp khác: dữ liệu không ủng hộ giải thích crack kém vì ít mẫu hoặc box nhỏ nhất. Ảnh GT cho thấy crack có thể là vết nứt mảnh hoặc vùng gồm nhiều đường nứt; khoanh vùng và phân biệt với texture mặt đường là giả thuyết cần kiểm tra. Manhole thường có biên hình học rõ hơn, nhưng thiếu output từng ảnh để chứng minh đó là nguyên nhân model làm tốt hơn.
 
 Hình dưới lấy **6 ảnh test thật**, chọn box nhỏ và gần trung vị cho mỗi lớp. Đỏ: pothole; vàng: crack; xanh: manhole. Tên ảnh, session và diện tích được ghi trong hình và JSON phân tích.
@@ -173,14 +178,36 @@ Hình dưới lấy **6 ảnh test thật**, chọn box nhỏ và gần trung v�
 
 ### Câu 10 — E4: bạn đổi biến nào, kết quả thế nào, và kết luận có đáng tin không?
 
-Chưa có `e4*.json` hoặc checkpoint E4, nên chưa có kết quả ablation. **E3** là baseline phù hợp nếu chọn theo micro-F1 cao nhất hiện tại (**0,4516**, CI95 **[0,4100; 0,4930]**). Notebook mặc định chọn **rank**: hai nhánh **r=4, alpha=8** và **r=64, alpha=128**. Đây là cấu hình dự kiến, không chứng minh đã chạy. Đã có run.json E3 làm nguồn cấu hình baseline; còn cần adapter, projector và processor của checkpoint E3 ở đường dẫn notebook sử dụng để nạp hoặc tái dùng baseline.
+**Biến thay đổi là rank LoRA**, trên baseline **E3** có micro-F1 cao nhất trong E1–E3. Nhánh đã chạy là **E4_RANK_4: r=4, alpha=8**, so với E3 **r=16, alpha=32**. Alpha đổi theo quy tắc `alpha = 2 × r` của GUIDE, nên tỷ lệ `alpha/r = 2` được giữ nguyên. LoRA vẫn áp dụng cho LLM và ViT, projector vẫn được mở đầy đủ.
 
-Để hoàn thiện cần giữ setup E3, dữ liệu, seed, lịch train và phạm vi lượng tử hóa, rồi chạy hai giá trị của đúng một biến. Báo cáo F1, CI95 và tài nguyên cả hai nhánh. Với data_size/coord_scale, có thể tái dùng nhánh tương đương baseline nhưng phải ghi rõ nguồn. Kiểm tra GT ở câu 3 không thay thế E4 vì không huấn luyện theo hai điều kiện nhãn/prompt.
+Đối chiếu hai run cho thấy các thiết lập huấn luyện còn lại giữ nguyên: model `Qwen/Qwen3-VL-4B-Instruct`, NF4 4-bit, dropout **0,05**, learning rate **0,0002**, batch **2**, tích lũy **4**, **300 bước**, seed **42**, **1.422 ảnh train**, train fraction **1,0**, warmup **0,05**, weight decay **0**, thang **norm1000** và max_new_tokens **256**. Run E4 khớp **348 module LoRA**, đủ 300 loss hữu hạn; loss đầu/cuối **1,1903 / 0,4907**, trung bình 20 bước đầu/cuối **0,8746 / 0,4940**. Đây là đối chiếu cấu hình đã ghi; chưa có log kiểm tra dtype/skip ở từng run để xác nhận độc lập phạm vi lượng tử hóa thực tế.
+
+Kết quả lấy từ [e4_rank_4.json](report/evidence/e4_rank_4.json); checkpoint final và [run.json](work/e4_rank_4/final/run.json) nằm ở `work/e4_rank_4/final/`, có adapter, `extra_trainable.pt` và processor/tokenizer.
+
+| Chỉ số | E3 baseline, r=16 | E4, r=4 | Chênh lệch r=4 so với r=16 |
+|---|---|---|---|
+| Micro-F1 | **0,4516** | **0,4296** | **−2,20 điểm phần trăm** |
+| CI95 | **[0,4100; 0,4930]** | **[0,3910; 0,4679]** | Chồng nhau |
+| Precision / recall | **0,4880 / 0,4202** | **0,4533 / 0,4082** | Cả hai giảm |
+| TP / FP / FN | **245 / 257 / 338** | **238 / 287 / 345** | **−7 / +30 / +7** |
+| FP/ảnh | **0,8264** | **0,9228** | **+0,0965** |
+| Parse valid / thiếu dự đoán | **100% / 0** | **100% / 0** | Cùng mức |
+| Tham số trainable | **148.426.752** | **118.935.552** | **−29.491.200 (−19,87%)** |
+| VRAM đỉnh (GB) | **12,0314** | **11,5923** | **−0,4391 (−3,65%)** |
+| Phút train | **55,2266** | **54,8010** | **−0,4256 (−0,77%)** |
+
+Giảm rank từ 16 xuống 4 giảm **75% tham số LoRA**: **39.321.600 → 9.830.400**. Tổng trainable chỉ giảm **19,87%** vì projector vẫn có **109.105.152** tham số, chiếm khoảng **91,73%** trainable của nhánh rank 4. VRAM và thời gian được ghi nhận chỉ giảm nhẹ; giảm rank không làm chi phí huấn luyện giảm tương ứng với số tham số adapter. Mean IoU của các cặp ghép thành công tăng **0,6851 → 0,6976**, nhưng TP giảm và FP tăng, nên không dùng chỉ số này để kết luận chất lượng phát hiện tổng thể tốt hơn.
+
+**Kết luận từ nhánh hiện có:** rank 4 tiết kiệm tham số trainable, còn E3 rank 16 có F1 ước lượng cao hơn. Với test **311 ảnh thuộc 3 session**, CI E4 rộng **7,70 điểm phần trăm** và chồng với E3; chưa thể khẳng định chênh lệch **2,20 điểm phần trăm** là do rank một cách đáng tin cậy. Cần dự đoán từng ảnh để bootstrap ghép cặp và nhiều seed để đánh giá biến động huấn luyện.
+
+**Giới hạn hoàn thành theo GUIDE:** ablation rank yêu cầu hai nhánh **r=4 và r=64**, đặt alpha tương ứng **8 và 128**. Hiện chỉ có evidence rank 4; baseline rank 16 giúp tham chiếu nhưng không thay thế nhánh rank 64. Vì vậy đã báo cáo đầy đủ kết quả E4 hiện có, còn thiếu `e4_rank_64.json` và run tương ứng để hoàn tất phép so sánh 4–64. Không suy ra chất lượng rank 64 hoặc rank tối ưu từ kết quả này.
 
 ## Nhìn lại
 
 Lỗi đã gặp là ViT/projector bị lượng tử hóa do tên skip không khớp; E2 cần cập nhật toàn bộ projector nên lỗi lộ rõ khi setup/train. Cần kiểm tra lớp trọng số sau khi tải, lưu riêng projector và nạp lại cùng adapter.
 
 E1 cải thiện JSON hợp lệ và TP nhưng FP vẫn **417**; E2/E3 lần lượt giảm FP còn **320/257** và tăng F1 lên **0,3401/0,4516**. E3 cho chất lượng tốt nhất với chi phí VRAM/thời gian cao hơn; pothole vẫn là điểm yếu và crack vẫn tạo phần lớn FP. Đúng định dạng chưa đồng nghĩa định vị tốt, và không nên quy mọi lỗi cho ít mẫu hoặc box nhỏ.
+
+E4 rank 4 đạt F1 **0,4296** với **118.935.552** tham số trainable, giảm **19,87%** so với E3 rank 16, nhưng VRAM/thời gian chỉ giảm **3,65% / 0,77%**. Kết quả cho thấy lợi ích tiết kiệm tham số rõ hơn lợi ích tài nguyên được đo; CI chồng nhau và thiếu nhánh rank 64 nên chưa kết luận rank nào tối ưu.
 
 Scorer tổng hợp chưa giải thích vì sao từng box sai, chưa xác nhận dtype/skip của run, và bootstrap theo ảnh chưa thể hiện đầy đủ phụ thuộc giữa frame cùng session. Cần log và output từng ảnh để kiểm tra.

@@ -171,7 +171,7 @@ def training_summary(path, score, n_train_images):
         assert run["n_train_images"] == int(n_train_images * config.get("train_fraction", 1))
     matched = run.get("matched_modules")
     if matched is not None:
-        expected = 348 if run["name"] == "E3" else 252
+        expected = 348 if config["lora"]["targets"] == "llm+vit" else 252
         assert len(matched) == len(set(matched)) == expected
         llm = r"model\.language_model\.layers\.\d+\.(?:self_attn\.(?:q|k|v|o)_proj|mlp\.(?:gate|up|down)_proj)"
         vit = r"model\.visual\.blocks\.\d+\.(?:attn\.(?:qkv|proj)|mlp\.(?:linear_fc1|linear_fc2))"
@@ -217,6 +217,7 @@ def main():
                 for a, b in (("train", "val"), ("train", "test"), ("val", "test"))}
     assert not any(overlaps.values())
     evidence_paths = {path.stem: path for path in sorted((ROOT / "report/evidence").glob("e[0-3].json"))}
+    evidence_paths.update({path.stem: path for path in sorted((ROOT / "report/evidence").glob("e4_rank_*.json"))})
     evidence = {name: json.loads(path.read_text()) for name, path in evidence_paths.items()}
     for name, score in evidence.items():
         assert score["name"] == name.upper() and score["score_version"] == 1
@@ -249,7 +250,9 @@ def main():
         common_training_config[key] = values[0]
 
     comparisons = {}
-    for before, after in (("e0", "e1"), ("e1", "e2"), ("e2", "e3"), ("e1", "e3")):
+    pairs = [("e0", "e1"), ("e1", "e2"), ("e2", "e3"), ("e1", "e3")]
+    pairs.extend(("e3", name) for name in evidence if name.startswith("e4_rank_"))
+    for before, after in pairs:
         if before not in evidence or after not in evidence:
             continue
         a, b = evidence[before], evidence[after]
@@ -291,6 +294,11 @@ def main():
         "source_sha256": {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in files},
         "available_evidence": available,
         "missing_evidence": [name for name in ("E0", "E1", "E2", "E3", "E4") if name not in available],
+        "e4_rank_ablation": {
+            "available_ranks": [rank for rank in (4, 64) if f"e4_rank_{rank}" in evidence],
+            "missing_ranks": [rank for rank in (4, 64) if f"e4_rank_{rank}" not in evidence],
+            "guide_pair_complete": all(f"e4_rank_{rank}" in evidence for rank in (4, 64)),
+        },
         "raw_predictions_available": bool(list((ROOT / "work").rglob("*.jsonl"))),
         "splits": stats, "session_overlap": overlaps, "architecture": architecture_counts(),
         "evidence": evidence, "comparisons": comparisons,
